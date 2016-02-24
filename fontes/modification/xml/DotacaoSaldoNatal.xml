@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<modification>
+  <name>DotacaoSaldoNatal</name>
+  <id>DotacaoSaldoNatal</id>
+  <ecidade-version>2.3.39</ecidade-version>
+  
+  <file path='libs/db_liborcamento.php'>
+    <operation>
+      <search><![CDATA[function db_dotacaosaldo($nivel = 8, $tipo_nivel = 1, $tipo_saldo = 2, $descr = true, $where = '', $anousu = null, $dataini = null, $datafim = null, $primeiro_fim = 8, $segundo_inicio = 0, $retsql = false, $tipo_balanco = 1, $desmembra_segundo_inicio = true, $subelemento = 'nao') {]]></search>
+      <add position="after">
+        <![CDATA[
+  require_once("classes/db_db_dotacaosaldonatal_classe.php");
+  $oDotacaoSaldoNatal = new db_dotacaosaldonatal();
+  return $oDotacaoSaldoNatal->db_dotacaosaldo_natal($nivel, $tipo_nivel, $tipo_saldo, $descr, $where, $anousu, $dataini, $datafim, $primeiro_fim, $segundo_inicio, $retsql, $tipo_balanco, $desmembra_segundo_inicio, $subelemento);
+]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path='orc2_reldespesas002.php'>
+    <operation>
+      <search><![CDATA[$pdf->cell(10, $alt, db_formatar($o58_codigo, 's', '0', 4, 'e'), 0, 0, "C", 0);]]></search>
+      <add position="replace">
+        <![CDATA[$pdf->cell(10, $alt, db_formatar($o58_localizadorgastos."/".$o58_codigo, 's', '0', 4, 'e'), 0, 0, "C", 0);]]>
+      </add>
+    </operation>
+  </file>
+
+</modification>

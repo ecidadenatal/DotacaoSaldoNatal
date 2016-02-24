@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<modification>
+  <name>SRD</name>
+  <id>SRD</id>
+  <ecidade-version>2.3.39</ecidade-version>
+  
+  <file path='orc1_orcprojeto001.php'>
+    <operation>
+      <search><![CDATA[    /* [Inicio plugin SRD  - Validação SRD - parte1] */
+    $clcriaabas->src  = array("projeto"=>"orc1_orcprojeto011.php",
+                              "emissao"=>"orc1_orcprojeto012.php"
+                              );
+    /* [Fim plugin SRD  - Validação SRD - parte1] */]]></search>
+      <add position="replace">
+        <![CDATA[
+    /* [Inicio plugin SRD  - Validação SRD - parte1] */
+    if(!isset($SRD)) {
+    $clcriaabas->src  = array("projeto"=>"orc1_orcprojeto011.php",
+                              "emissao"=>"orc1_orcprojeto012.php"
+                              ); 
+    } else {
+      $clcriaabas->src  = array("projeto"=>"orc1_orcprojeto011.php?SRD",
+                              "emissao"=>"orc1_orcprojeto012.php?SRD"
+                              ); 
+    }
+    /* [Fim plugin SRD  - Validação SRD - parte1] */]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path='orc1_orcprojeto002.php'>
+    <operation>
+      <search><![CDATA[    /* [Inicio plugin SRD  - Validação SRD - parte1] */
+    $clcriaabas->src  = array("projeto"=>"orc1_orcprojeto022.php",
+                              "emissao"=>"orc1_orcprojeto012.php"
+                              );
+    /* [Fim plugin SRD  - Validação SRD - parte1] */]]></search>
+      <add position="replace">
+        <![CDATA[
+    /* [Inicio plugin SRD  - Validação SRD - parte1] */
+    if(!isset($SRD)) {
+    $clcriaabas->src  = array("projeto"=>"orc1_orcprojeto022.php",
+                              "emissao"=>"orc1_orcprojeto012.php"
+                              ); 
+    } else {
+      $clcriaabas->src  = array("projeto"=>"orc1_orcprojeto022.php?SRD",
+                              "emissao"=>"orc1_orcprojeto012.php?SRD"
+                              ); 
+    }
+    /* [Fim plugin SRD  - Validação SRD - parte1] */]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path='orc1_orcprojeto011.php'>
+    
+    <operation>
+      <search><![CDATA[ include("forms/db_frmorcprojeto.php");]]></search>
+      <add position="replace">
+        <![CDATA[
+  include(modification("forms/db_frmorcprojeto.php"));]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[    /* [Inicio plugin SRD  - Validação SRD - parte1] */
+    echo "<script>
+           // parent.mo_camada('emissao');
+           parent.location.href = 'orc1_orcsuplem001.php?chavepesquisa={$clorcprojeto->o39_codproj}';\n
+          </script>
+         ";
+    /* [Fim plugin SRD  - Validação SRD - parte1] */    ]]></search>
+      <add position="replace">
+        <![CDATA[
+    /* [Inicio plugin SRD  - Validação SRD - parte1] */
+    if(!isset($SRD)) {
+    echo "<script>
+           // parent.mo_camada('emissao');
+           parent.location.href = 'orc1_orcsuplem001.php?chavepesquisa={$clorcprojeto->o39_codproj}';\n
+          </script>
+         ";
+    } else {
+    echo "<script>
+           // parent.mo_camada('emissao');
+           parent.location.href = 'orc1_orcsuplem001.php?chavepesquisa={$clorcprojeto->o39_codproj}&SRD';\n
+          </script>
+         ";
+    }
+    /* [Fim plugin SRD  - Validação SRD - parte1] */    ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path='orc1_orcprojeto022.php'>
+    <operation>
+      <search><![CDATA[         parent.iframe_emissao.location.href='orc1_orcprojeto012.php?o39_codproj=$o39_codproj';]]></search>
+      <add position="replace">
+        <![CDATA[
+         parent.iframe_emissao.location.href='orc1_orcprojeto012.php?SRD&o39_codproj=$o39_codproj';]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[  include("forms/db_frmorcprojeto.php");]]></search>
+      <add position="replace">
+        <![CDATA[
+	include(modification("forms/db_frmorcprojeto.php"));]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path='forms/db_frmorcprojeto.php'>
+    <operation>
+      <search><![CDATA[          /* [Inicio plugin SRD  - Validação SRD - parte1] */
+          $x = array('0'=> 'Nenhum','f'=>'Não','t'=>'Sim');
+          db_select('o39_usalimite',$x,true,$db_opcao,"");
+          /* [Fim plugin SRD  - Validação SRD - parte1] */]]></search>
+      <add position="replace">
+        <![CDATA[
+          /* [Inicio plugin SRD  - Validação SRD - parte1] */
+          if (!isset($SRD)) {
+            $x = array('0'=> 'Nenhum','f'=>'Não','t'=>'Sim');
+            db_select('o39_usalimite',$x,true,$db_opcao,"");
+          } else {
+            $o39_usalimite = 'f';
+            $x = array('f'=>'Não');
+            db_select('o39_usalimite',$x,true,3,"");            
+          }
+          /* [Fim plugin SRD  - Validação SRD - parte1] */]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[      <input name="<?=($db_opcao==1?"incluir":($db_opcao==2||$db_opcao==22?"alterar":"excluir"))?>"
+            onclick='return js_validalimite()' type="submit" id="db_opcao" 
+            value="<?=($db_opcao==1?"Incluir":($db_opcao==2||$db_opcao==22?"Alterar":"Excluir"))?>" 
+            <?=($db_botao==false?"disabled":"")?> >]]></search>
+      <add position="replace">
+        <![CDATA[
+      <input name="<?=($db_opcao==1?"incluir":($db_opcao==2||$db_opcao==22?"alterar":"excluir"))?>"
+            onclick="<?= isset($SRD)? 'return js_validaNumDecreto()' : 'return js_validalimite()' ?>" type="submit" id="db_opcao" 
+            value="<?=($db_opcao==1?"Incluir":($db_opcao==2||$db_opcao==22?"Alterar":"Excluir"))?>" 
+            <?=($db_botao==false?"disabled":"")?> >]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[/* [Inicio plugin SRD  - Validação SRD - parte2] */]]></search>
+      <add position="after">
+        <![CDATA[
+function js_validaNumDecreto() {
+  if (document.getElementById('o39_numero').value != "" && document.getElementById('o39_numero').value < 90000) {
+    alert("O código da SRD deve ser maior que 90000.");
+    return false;
+  } else {
+    return js_validalimite();
+  }
+}]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[     echo "js_OpenJanelaIframe('top.corpo.iframe_projeto','db_iframe_orcprojeto','func_orcprojeto001.php?funcao_js=parent.js_preenchepesquisa|o39_codproj','Pesquisa',true);";]]></search>
+      <add position="replace">
+        <![CDATA[
+  if(!isset($SRD)) {
+     echo "js_OpenJanelaIframe('top.corpo.iframe_projeto','db_iframe_orcprojeto','func_orcprojeto001.php?funcao_js=parent.js_preenchepesquisa|o39_codproj','Pesquisa',true);";
+  } else {
+     echo "js_OpenJanelaIframe('top.corpo.iframe_projeto','db_iframe_orcprojeto','func_orcprojeto001.php?SRD&funcao_js=parent.js_preenchepesquisa|o39_codproj','Pesquisa',true);";
+  }]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[    echo " location.href = '".basename($GLOBALS["HTTP_SERVER_VARS"]["PHP_SELF"])."?chavepesquisa='+chave";]]></search>
+      <add position="replace">
+        <![CDATA[
+    if(!isset($SRD)) {
+      echo " location.href = '".basename($GLOBALS["HTTP_SERVER_VARS"]["PHP_SELF"])."?chavepesquisa='+chave";
+    } else {
+      echo " location.href = '".basename($GLOBALS["HTTP_SERVER_VARS"]["PHP_SELF"])."?SRD&chavepesquisa='+chave";
+    }]]>
+      </add>
+    </operation>
+
+  </file>  
+  
+  <file path='orc1_orcsuplem001.php'>
+    <operation>
+      <search><![CDATA[        /* [Inicio plugin SRD  - Validação SRD - parte1] */
+        $sSqlTipoSuplem = $clorcsuplemtipo->sql_query("","o48_tiposup as o46_tiposup,o48_descr","o48_tiposup");
+        /* [Fim plugin SRD  - Validação SRD - parte1] */]]></search>
+      <add position="replace">
+        <![CDATA[
+        /* [Inicio plugin SRD  - Validação SRD - parte1] */
+        if(!isset($SRD)){
+          $sSqlTipoSuplem = $clorcsuplemtipo->sql_query("","o48_tiposup as o46_tiposup,o48_descr","o48_tiposup");
+        } else {
+          $sSqlTipoSuplem = $clorcsuplemtipo->sql_query("","o48_tiposup as o46_tiposup,o48_descr","o48_tiposup","o48_tiposup = 1014");
+        }
+        /* [Fim plugin SRD  - Validação SRD - parte1] */]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[      /* [Inicio plugin SRD  - Validação SRD - parte2] */  
+      echo " location.href='".basename($GLOBALS["HTTP_SERVER_VARS"]["PHP_SELF"])."?chavepesquisa='+projeto+'&excluir=true&projeto='+projeto+'&codsup='+codsup";  
+      /* [Fim plugin SRD  - Validação SRD - parte2] */]]></search>
+      <add position="replace">
+        <![CDATA[
+      /* [Inicio plugin SRD  - Validação SRD - parte2] */  
+      if (!isset($SRD)) {
+        echo " location.href='".basename($GLOBALS["HTTP_SERVER_VARS"]["PHP_SELF"])."?chavepesquisa='+projeto+'&excluir=true&projeto='+projeto+'&codsup='+codsup";  
+      } else {
+        echo " location.href='".basename($GLOBALS["HTTP_SERVER_VARS"]["PHP_SELF"])."?SRD&chavepesquisa='+projeto+'&excluir=true&projeto='+projeto+'&codsup='+codsup";  
+      }
+      /* [Fim plugin SRD  - Validação SRD - parte2] */]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[    /* [Inicio plugin SRD  - Validação SRD - parte3] */
+    echo " location.href = '".basename($GLOBALS["HTTP_SERVER_VARS"]["PHP_SELF"])."?chavepesquisa='+chave";
+    /* [Fim plugin SRD  - Validação SRD - parte3] */]]></search>
+      <add position="replace">
+        <![CDATA[
+    /* [Inicio plugin SRD  - Validação SRD - parte3] */
+    if (!isset($SRD)) {
+      echo " location.href = '".basename($GLOBALS["HTTP_SERVER_VARS"]["PHP_SELF"])."?chavepesquisa='+chave";
+    } else {
+      echo " location.href = '".basename($GLOBALS["HTTP_SERVER_VARS"]["PHP_SELF"])."?SRD&chavepesquisa='+chave";
+    }
+    /* [Fim plugin SRD  - Validação SRD - parte3] */]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[    /* [Inicio plugin SRD  - Validação SRD - parte4] */
+    echo " location.href = '".basename($GLOBALS["HTTP_SERVER_VARS"]["PHP_SELF"])."?chavepesquisa='+chave";
+    /* [Fim plugin SRD  - Validação SRD - parte4] */]]></search>
+      <add position="replace">
+        <![CDATA[
+    /* [Inicio plugin SRD  - Validação SRD - parte4] */
+    if (!isset($SRD)) {
+      echo " location.href = '".basename($GLOBALS["HTTP_SERVER_VARS"]["PHP_SELF"])."?chavepesquisa='+chave";
+    } else {
+      echo " location.href = '".basename($GLOBALS["HTTP_SERVER_VARS"]["PHP_SELF"])."?SRD&chavepesquisa='+chave";
+    }
+    /* [Fim plugin SRD  - Validação SRD - parte4] */]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[  /* [Inicio plugin SRD  - Validação SRD - parte5] */
+  js_OpenJanelaIframe('top.corpo','db_iframe_suplementacao','orc1_orcsuplem008.php?projeto='+projeto+'&tiposup='+tiposup,'Pesquisa',true);
+  /* [Fim plugin SRD  - Validação SRD - parte5] */ ]]></search>
+      <add position="replace">
+        <![CDATA[
+  /* [Inicio plugin SRD  - Validação SRD - parte5] */ 
+  var SRD = <?= isset($SRD)? '1' : '0' ?>;
+  if (!SRD) {
+    js_OpenJanelaIframe('top.corpo','db_iframe_suplementacao','orc1_orcsuplem008.php?projeto='+projeto+'&tiposup='+tiposup,'Pesquisa',true);
+  } else {
+    js_OpenJanelaIframe('top.corpo','db_iframe_suplementacao','orc1_orcsuplem008.php?SRD&projeto='+projeto+'&tiposup='+tiposup,'Pesquisa',true);
+  }
+  /* [Fim plugin SRD  - Validação SRD - parte5] */ ]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[  /* [Inicio plugin SRD  - Validação SRD - parte6] */ 
+  js_OpenJanelaIframe('top.corpo','db_iframe_suplementacao','orc1_orcsuplem008.php?projeto='+projeto+'&codsup='+codsup,'Pesquisa',true);
+  /* [Fim plugin SRD  - Validação SRD - parte6] */ ]]></search>
+      <add position="replace">
+        <![CDATA[
+  /* [Inicio plugin SRD  - Validação SRD - parte6] */ 
+  var SRD = <?= isset($SRD)? '1' : '0' ?>;
+  if (!SRD) {
+    js_OpenJanelaIframe('top.corpo','db_iframe_suplementacao','orc1_orcsuplem008.php?projeto='+projeto+'&codsup='+codsup,'Pesquisa',true);
+  } else {
+    js_OpenJanelaIframe('top.corpo','db_iframe_suplementacao','orc1_orcsuplem008.php?SRD&projeto='+projeto+'&codsup='+codsup,'Pesquisa',true);
+  }
+  /* [Fim plugin SRD  - Validação SRD - parte6] */ ]]>
+      </add>
+    </operation>
+  </file>
+
+  <file path='orc1_orcsuplem008.php'>
+    <operation>
+      <search><![CDATA[  $src["suplementacao"]        = "orc1_orcsuplemval007.php?o39_codproj=$projeto&o46_codsup=$codsup";]]></search>
+      <add position="replace">
+        <![CDATA[
+  if(!isset($SRD)) {
+    $src["suplementacao"]        = "orc1_orcsuplemval007.php?o39_codproj=$projeto&o46_codsup=$codsup";
+  } else {
+    $src["suplementacao"]        = "orc1_orcsuplemval007.php?SRD&o39_codproj=$projeto&o46_codsup=$codsup";
+  }]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[  $src["reducao"]        = "orc1_orcsuplemval001.php?o39_codproj=$projeto&o46_codsup=$codsup";]]></search>
+      <add position="replace">
+        <![CDATA[
+  if(!isset($SRD)) {
+    $src["reducao"]        = "orc1_orcsuplemval001.php?o39_codproj=$projeto&o46_codsup=$codsup";
+  } else {
+    $src["reducao"]        = "orc1_orcsuplemval001.php?SRD&o39_codproj=$projeto&o46_codsup=$codsup";
+  }]]>
+      </add>
+    </operation>
+  </file>
+
+
+  <file path='orc1_orcsuplemval007.php'>
+    <operation>
+      <search><![CDATA[    /* [Inicio plugin SRD  - Validação SRD - parte1] */]]></search>
+      <add position="after">
+        <![CDATA[
+    if (isset($SRD)){
+      //Buscar os dados referentes à dotação que está sendo inserida
+      $clorcelemento   = new cl_orcelemento;
+      $rsOrcDotacao    = $clorcdotacao->sql_record($clorcdotacao->sql_query(db_getsession("DB_anousu"), $o47_coddot));
+      $oDotacao        = db_utils::fieldsMemory($rsOrcDotacao, 0);
+
+      $codFonteRecurso = $oDotacao->o58_codigo;
+      $codAcao         = $oDotacao->o58_projativ;
+      $elemento        = $oDotacao->o58_codele;
+      //Obter o código do elemento de despesa
+      $rsOrcElemento = $clorcelemento->sql_record($clorcelemento->sql_query($elemento, db_getsession("DB_anousu")));
+      $oElemento     = db_utils::fieldsMemory($rsOrcElemento, 0);
+      $codElemento   = $oElemento->o56_elemento;
+
+      //Buscar o código da dotação da suplementação anterior
+      $rsOrcsuplemval = $clorcsuplemval->sql_record($clorcsuplemval->sql_query("$o46_codsup"));
+      if ($clorcsuplemval->numrows > 0) {
+
+        $oSuplemval     = db_utils::fieldsMemory($rsOrcsuplemval, 0);      
+        $dotSuplemval   = $oSuplemval->o47_coddot;
+  
+        //Buscar os dados da dotação de suplementações anteriores
+        $rsOrcDotacaoSuplemval    = $clorcdotacao->sql_record($clorcdotacao->sql_query(db_getsession("DB_anousu"), $dotSuplemval));
+        $oDotacaoSuplemval        = db_utils::fieldsMemory($rsOrcDotacaoSuplemval, 0); //Pegar apenas o último registro, já que todas as suplementações devem seguir a mesma regra
+        $codFonteRecursoSuplemval = $oDotacaoSuplemval->o58_codigo;
+        $codAcaoSuplemval         = $oDotacaoSuplemval->o58_projativ;
+        $elementoSuplemval        = $oDotacaoSuplemval->o58_codele;
+        //Obter o código do elemento de despesa
+        $rsOrcElementoSuplemval = $clorcelemento->sql_record($clorcelemento->sql_query($elementoSuplemval, db_getsession("DB_anousu")));
+        $oElementoSuplemval     = db_utils::fieldsMemory($rsOrcElementoSuplemval, 0);
+        $codElementoSuplemval   = $oElementoSuplemval->o56_elemento;
+  
+        /*   Validações:
+         * - Os 3 primeiros dígitos do elemento de despesa devem ser iguais
+         * - As dotações utilizadas tanto para suplementação quanto para redução, devem ser para a mesma ação
+         * - As dotações utilizadas tanto para suplementação quanto para redução, devem ser da mesma fonte de recurso
+         */
+        if (substr($codElemento, 0, 3) != substr($codElementoSuplemval, 0, 3)) {
+          $sqlerro = true;
+          db_msgbox("Os 3 primeiros dígitos do elemento de despesa devem ser iguais aos do que foi utilizado nos lançamentos anteriores.");
+        }
+        if ($codFonteRecurso != $codFonteRecursoSuplemval) {
+          $sqlerro = true;
+          db_msgbox("A fonte de recurso não pode ser diferente das fontes dos lançamentos anteriores.");
+        }
+        if ($codAcao != $codAcaoSuplemval) {
+          $sqlerro = true;
+          db_msgbox("A ação não pode ser diferente das fontes dos lançamentos anteriores.");
+        }
+      }
+    }]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[$res = $clorcdotacao->sql_record($clorcdotacao->sql_query(db_getsession("DB_anousu"),$o47_coddot));]]></search>
+      <add position="replace">
+        <![CDATA[
+   $sWhere = "";
+   if (isset($SRD)) {
+    $sWhere  = "orcdotacao.o58_anousu = $anousu and orcdotacao.o58_coddot = $o47_coddot ";
+    $sWhere .= " and (o58_orgao || o58_anousu) in (select db20_orgao || db20_anousu from db_permemp inner join db_usupermemp on db21_codperm = db20_codperm where db21_id_usuario =".db_getsession("DB_id_usuario").")";
+   }
+   
+   $res = $clorcdotacao->sql_record($clorcdotacao->sql_query(db_getsession("DB_anousu"),$o47_coddot, "*", null, $sWhere));]]>
+      </add>
+    </operation>
+    
+    <operation>
+      <search><![CDATA[include("forms/db_frmorcsuplemval.php");]]></search>
+      <add position="replace">
+        <![CDATA[
+include(modification("forms/db_frmorcsuplemval.php"));]]>
+      </add>
+    </operation>
+
+  </file>
+    
+  <file path='orc1_orcsuplemval001.php'>
+    <operation>
+      <search><![CDATA[  /* [Inicio plugin SRD  - Validação SRD - parte1] */]]></search>
+      <add position="after">
+        <![CDATA[
+    if (isset($SRD)){
+      //Buscar os dados referentes à dotação que está sendo inserida
+      $clorcelemento   = new cl_orcelemento;
+      $rsOrcDotacao    = $clorcdotacao->sql_record($clorcdotacao->sql_query(db_getsession("DB_anousu"), $o47_coddot));
+      $oDotacao        = db_utils::fieldsMemory($rsOrcDotacao, 0);
+
+      $codFonteRecurso = $oDotacao->o58_codigo;
+      $codAcao         = $oDotacao->o58_projativ;
+      $elemento        = $oDotacao->o58_codele;
+      //Obter o código do elemento de despesa
+      $rsOrcElemento = $clorcelemento->sql_record($clorcelemento->sql_query($elemento, db_getsession("DB_anousu")));
+      $oElemento     = db_utils::fieldsMemory($rsOrcElemento, 0);
+      $codElemento   = $oElemento->o56_elemento;
+
+      //Buscar o código da dotação da suplementação anterior
+      $rsOrcsuplemval = $clorcsuplemval->sql_record($clorcsuplemval->sql_query("$o46_codsup"));
+      if ($clorcsuplemval->numrows > 0) {
+
+        $oSuplemval     = db_utils::fieldsMemory($rsOrcsuplemval, 0);      
+        $dotSuplemval   = $oSuplemval->o47_coddot;
+  
+        //Buscar os dados da dotação de suplementações anteriores
+        $rsOrcDotacaoSuplemval    = $clorcdotacao->sql_record($clorcdotacao->sql_query(db_getsession("DB_anousu"), $dotSuplemval));
+        $oDotacaoSuplemval        = db_utils::fieldsMemory($rsOrcDotacaoSuplemval, 0); //Pegar apenas o último registro, já que todas as suplementações devem seguir a mesma regra
+        $codFonteRecursoSuplemval = $oDotacaoSuplemval->o58_codigo;
+        $codAcaoSuplemval         = $oDotacaoSuplemval->o58_projativ;
+        $elementoSuplemval        = $oDotacaoSuplemval->o58_codele;
+        //Obter o código do elemento de despesa
+        $rsOrcElementoSuplemval = $clorcelemento->sql_record($clorcelemento->sql_query($elementoSuplemval, db_getsession("DB_anousu")));
+        $oElementoSuplemval     = db_utils::fieldsMemory($rsOrcElementoSuplemval, 0);
+        $codElementoSuplemval   = $oElementoSuplemval->o56_elemento;
+  
+        /*   Validações:
+         * - Os 3 primeiros dígitos do elemento de despesa devem ser iguais
+         * - As dotações utilizadas tanto para suplementação quanto para redução, devem ser para a mesma ação
+         * - As dotações utilizadas tanto para suplementação quanto para redução, devem ser da mesma fonte de recurso
+         */
+        if (substr($codElemento, 0, 3) != substr($codElementoSuplemval, 0, 3)) {
+          $sqlerro = true;
+          db_msgbox("Os 3 primeiros dígitos do elemento de despesa devem ser iguais aos do que foi utilizado nos lançamentos anteriores.");
+        }
+        if ($codFonteRecurso != $codFonteRecursoSuplemval) {
+          $sqlerro = true;
+          db_msgbox("A fonte de recurso não pode ser diferente das fontes dos lançamentos anteriores.");
+        }
+        if ($codAcao != $codAcaoSuplemval) {
+          $sqlerro = true;
+          db_msgbox("A ação não pode ser diferente das fontes dos lançamentos anteriores.");
+        }
+      }
+    }]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[$res = $clorcdotacao->sql_record($clorcdotacao->sql_query(db_getsession("DB_anousu"),$o47_coddot));]]></search>
+      <add position="replace">
+        <![CDATA[
+   $sWhere = "";
+   if (isset($SRD)) {
+    $sWhere  = "orcdotacao.o58_anousu = $anousu and orcdotacao.o58_coddot = $o47_coddot ";
+    $sWhere .= " and (o58_orgao || o58_anousu) in (select db20_orgao || db20_anousu from db_permemp inner join db_usupermemp on db21_codperm = db20_codperm where db21_id_usuario =".db_getsession("DB_id_usuario").")";
+   }
+   
+   $res = $clorcdotacao->sql_record($clorcdotacao->sql_query(db_getsession("DB_anousu"),$o47_coddot, "*", null, $sWhere));]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[include("forms/db_frmorcsuplemval.php");]]></search>
+      <add position="replace">
+        <![CDATA[
+include(modification("forms/db_frmorcsuplemval.php"));]]>
+      </add>
+    </operation>
+
+  </file>
+
+  <file path='func_orcprojeto001.php'>
+    <operation>
+      <search><![CDATA[/* [Inicio plugin SRD  - Validação SRD - parte1] */]]></search>
+      <add position="after">
+        <![CDATA[
+        if(isset($SRD)) {
+            $sSqlWhereSituacao .= " and o39_codproj in (select o46_codlei from orcsuplem where o46_tiposup = 1014) ";
+        }]]>
+      </add>
+    </operation>
+
+  </file>
+
+  <file path='func_orcdotacao.php'>
+    <operation>
+      <search><![CDATA[/* [Inicio plugin SRD  - Validação SRD - parte1] */]]></search>
+      <add position="after">
+        <![CDATA[
+          if(isset($SRD)){
+            $dbwhere .=  " and (o58_orgao || o58_anousu) in (select db20_orgao || db20_anousu from db_permemp inner join db_usupermemp on db21_codperm = db20_codperm where db21_id_usuario =".db_getsession("DB_id_usuario").")";
+          }]]>
+      </add>
+    </operation>
+
+    <operation>
+      <search><![CDATA[$sql = $clorcdotacao->sql_query(db_getsession("DB_anousu"),$pesquisa_chave);]]></search>
+      <add position="replace">
+        <![CDATA[
+          $sWhere = "";
+          if(isset($SRD)){
+            $sWhere  = " (o58_orgao || o58_anousu) in (select db20_orgao || db20_anousu from db_permemp inner join db_usupermemp on db21_codperm = db20_codperm where db21_id_usuario =".db_getsession("DB_id_usuario").")";
+            $sWhere .= " and o58_anousu = ".db_getsession("DB_anousu")." and orcdotacao.o58_coddot = ".$pesquisa_chave."";
+          } 
+          $sql = $clorcdotacao->sql_query(db_getsession("DB_anousu"),$pesquisa_chave, "*", null, $sWhere);]]>
+      </add>
+    </operation>
+
+  </file>
+
+  <file path='forms/db_frmorcsuplemval.php'>
+    <operation>
+      <search><![CDATA[  if(mostra==true){
+    js_OpenJanelaIframe('','db_iframe_orcdotacao','func_orcdotacao.php?funcao_js=parent.js_mostraorcdotacao1|o58_coddot','Pesquisa',true,0);
+  }else{
+    js_OpenJanelaIframe('','db_iframe_orcdotacao','func_orcdotacao.php?pesquisa_chave='+document.form1.o47_coddot.value+'&funcao_js=parent.js_mostraorcdotacao','Pesquisa',false);
+  }]]></search>
+      <add position="replace">
+        <![CDATA[
+  var SRD = <?= isset($SRD)? '1' : '0' ?>;  
+  if (!SRD) {
+      if(mostra==true){
+        js_OpenJanelaIframe('','db_iframe_orcdotacao','func_orcdotacao.php?funcao_js=parent.js_mostraorcdotacao1|o58_coddot','Pesquisa',true,0);
+      }else{
+        js_OpenJanelaIframe('','db_iframe_orcdotacao','func_orcdotacao.php?pesquisa_chave='+document.form1.o47_coddot.value+'&funcao_js=parent.js_mostraorcdotacao','Pesquisa',false);
+      }
+  } else {
+      if(mostra==true){
+        js_OpenJanelaIframe('','db_iframe_orcdotacao','func_orcdotacao.php?SRD&funcao_js=parent.js_mostraorcdotacao1|o58_coddot','Pesquisa',true,0);
+      }else{
+        js_OpenJanelaIframe('','db_iframe_orcdotacao','func_orcdotacao.php?SRD&pesquisa_chave='+document.form1.o47_coddot.value+'&funcao_js=parent.js_mostraorcdotacao','Pesquisa',false);
+      }
+  }]]>
+      </add>
+    </operation>
+
+  </file>
+
+</modification>

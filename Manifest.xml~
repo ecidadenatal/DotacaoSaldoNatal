@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <plugin name="DecretoSRD" label="Decreto SRD" plugin-version="1.0" ecidade-version="2.3.39" id-modulo="116">
+   <id id="DecretoSRD"> </id>
+   <files>    
+
+    <!-- outro -->
+    <file name="DecretoSRD.xml"    path="/modification/xml/DecretoSRD.xml" />
+
+   </files>
+  </plugin>
+</manifest>    

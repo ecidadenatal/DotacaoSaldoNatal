@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <plugin name="DotacaoSaldoNatal" label="DotacaoSaldoNatal" plugin-version="1.0" ecidade-version="2.3.39" id-modulo="116">
+   <id id="DotacaoSaldoNatal"> </id>
+   <files>    
+
+    <!-- outro -->
+    <file name="DotacaoSaldoNatal.xml"    path="/modification/xml/DotacaoSaldoNatal.xml" />
+    <file name="db_db_dotacaosaldonatal_classe.php" path="/classes/db_db_dotacaosaldonatal_classe.php" />
+
+   </files>
+  </plugin>
+</manifest>    
