@@ -1388,6 +1388,7 @@ class db_dotacaosaldonatal {
       $resultdotacao = $sql;
     }
   }
+
   return $resultdotacao;
 }
 
